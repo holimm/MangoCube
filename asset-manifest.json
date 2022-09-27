@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/MangoCube-Dev/static/css/main.9b314a46.css",
+    "main.js": "/MangoCube-Dev/static/js/main.19cd1a1d.js",
+    "index.html": "/MangoCube-Dev/index.html",
+    "main.9b314a46.css.map": "/MangoCube-Dev/static/css/main.9b314a46.css.map",
+    "main.19cd1a1d.js.map": "/MangoCube-Dev/static/js/main.19cd1a1d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9b314a46.css",
+    "static/js/main.19cd1a1d.js"
+  ]
+}
