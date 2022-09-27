@@ -3,7 +3,6 @@ import {motion} from "framer-motion";
 import { useRef, useState } from "react";
 
 export default function Homepage(){
-    const [showIP,setShowIP] = useState(true);
     const refServerIP = useRef(null);
     function Header(){
         function Tab(props){
@@ -120,7 +119,7 @@ export default function Homepage(){
                             animate={{scale: 1, opacity: 1}}
                             transition={{duration:0.5, ease:'easeInOut'}}
                         >
-                        <img src={`${currentStaff.model}`}></img>
+                        <img src={`${currentStaff.model}`} alt="Staff Model"></img>
                         </motion.div>
                     </div>
                 );
@@ -135,13 +134,13 @@ export default function Homepage(){
         const StaffHead = (props) => {
             return(
                 <div className="h-fit w-fit float-left">
-                    <img onClick={()=>changeShowingStaff(props.name)} className="hover:scale-110 cursor-pointer" height={'50%'} width={'50%'} src={`${props.img}`}></img>
+                    <img onClick={()=>changeShowingStaff(props.name)} alt="Staff Head" className="hover:scale-110 cursor-pointer" height={'50%'} width={'50%'} src={`${props.img}`}></img>
                 </div>
             );
         }
         function changeShowingStaff(name){
             let setThisStaff = staffs.filter(item=>{
-                return item.name == name;
+                return item.name === name;
             });
             setCurrentStaff(setThisStaff[0]);
         }
@@ -170,7 +169,7 @@ export default function Homepage(){
                 <div className="h-full w-1/3 relative z-20 mx-auto">
                     <div className="h-fit w-full mx-auto">
                         <h1 className="text-4xl text-center mt-5">Join Our Discord!</h1>
-                        <img className="mt-3 mx-auto" src="./img/discord.png"></img>
+                        <img className="mt-3 mx-auto" src="./img/discord.png" alt="DiscordLogo"></img>
                         <p className="mt-3 text-center">Here on MangoCube we think communication is the key to an amazing community. Because of that, we heavily value our Discord and the way it allows us to connect with our favourite people ever - you! Come join us, and let's create our origin - together!</p>
                         <div className="h-fit w-fit mx-auto">
                             <motion.button className="px-10 py-4 mt-4 bg-sky-800 hover:bg-sky-700 border-b-2 border-r-2 border-sky-400"
