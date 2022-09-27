@@ -1,6 +1,6 @@
 {
-  "homepage": "https://holimm.github.io/MangoCube-Dev",
-  "name": "MangoCube-Dev",
+  "homepage": "https://holimm.github.io/MangoCube",
+  "name": "mangocube",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
