@@ -1,40 +1,65 @@
 import ReactPlayer from "react-player";
 import {motion} from "framer-motion";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useSelector, useDispatch } from "react-redux/es/exports";
+import { setCurrentPage,setTransitionTabAnimation,setHeaderCancelAnimation } from "./counter/counterSlice";
+import { useNavigate } from "react-router-dom";
+import Header from "./constant/header";
+import Footer from "./constant/footer";
 
 export default function Homepage(){
     const refServerIP = useRef(null);
-    function Header(){
-        function Tab(props){
-            return(
-                props.name === "STORE" ? <div className="h-fit w-fit mx-6 px-4 py-2 text-xl bg-amber-700 hover:bg-amber-600 transition-all duration-300 cursor-pointer">{props.name}</div>
-                : <div className="h-fit w-fit mx-6 px-4 py-2 text-xl hover:bg-amber-700 transition-all duration-300 cursor-pointer">{props.name}</div>
-            );
-        }
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const transitionTabAnimation = useSelector((state)=>state.counter.transitionTabAnimation);
+    const currentPage = useSelector((state)=>state.counter.currentPage);
+    useEffect(()=>{
+        dispatch(setHeaderCancelAnimation(-200));
+        dispatch(setCurrentPage('Home'));
+        dispatch(setTransitionTabAnimation(false));
+    },[]);   
+    function TransitionAnimation(){
         return(
-            <motion.div className="h-20 w-full absolute top-0 z-50" 
-                initial={{y:-200}}
-                animate={{y:0}}
-                transition={{duration: 1, ease:'easeInOut'}}
-            >
-                <nav className="h-full w-2/3 mx-auto text-center grid grid-cols-2">
-                    <div className="h-full w-full">
-                        <div className="h-full w-1/2 bg-cover bg-center cursor-pointer" style={{backgroundImage: `url('./img/mangocube_word.png')`}}></div>
+            <>
+            <motion.div className="fixed top-0 h-screen w-full bg-black" style={{zIndex: 60}} initial={{opacity:0}} animate={{opacity:1}} transition={{duration:0.4}}></motion.div>
+            </>
+        );
+    }
+    function SplitLiner(){
+        return(
+            <div className="h-20 w-10/12 mx-auto bg-neutral-900"></div>
+        );
+    }
+    function Banner(){
+        return(
+            <>         
+            <div className="w-full bg-cover bg-center bg-no-repeat relative" style={{backgroundImage: `url('../img/homepage.png')`,backgroundSize: '100%',height: '52rem'}}>
+                <div className="h-full w-full absolute top-0 z-20 bg-gradient-to-b from-transparent to-black">
+                    <div className="h-full w-full flex justify-center items-center">
+                        <div className="h-fit w-fit mx-auto">
+                            <motion.img className="cursor-pointer mx-auto" src="../img/mangocube_logo.webp" alt="MangoCube Logo"
+                                initial={{scale:1.2}}
+                                animate={{y: [0,-15,0]}}
+                                transition={{duration:1.5, repeat:'Infinity'}}
+                                drag
+                                dragConstraints={{top: 0, bottom:0, left: 0, right: 0}}
+                            ></motion.img>
+                            <motion.div className="h-fit w-fit flex justify-center items-center px-5 py-2 bg-amber-900 border-r-2 border-b-2 border-amber-700 mt-5">
+                                <motion.p ref={refServerIP} className="text-3xl text-center cursor-pointer" onClick={copyServerIP}>play.mangocube.net</motion.p>
+                            </motion.div>
+                        </div>
                     </div>
-                    <div className="h-full w-full flex justify-end items-center">
-                        <Tab name="HOME"/>
-                        <Tab name="BLOG"/>
-                        <Tab name="RULES"/>
-                        <Tab name="STORE"/>
-                    </div>
-                </nav>
-            </motion.div>
+                </div>
+                <Header/>
+            </div>
+            </>
         );
     }
     function Introduce(){
         return(
-            <div className="h-fit w-2/3 mx-auto grid grid-cols-2 gap-14 pb-20 pt-20">
-                <div className="h-full w-full">
+            <div className="h-fit w-full bg-black" style={{height: '40rem'}}>
+            <div className="h-full w-2/3 mx-auto grid grid-cols-2 gap-14 pb-20 pt-20">
+                <div className="h-full w-full flex items-center">
                     <ReactPlayer url={'https://www.youtube.com/embed/jMe3tdyjouM'} controls={true}></ReactPlayer>    
                 </div>
                 <div className="h-full w-full flex items-center">
@@ -44,29 +69,33 @@ export default function Homepage(){
                     </div>
                 </div>
             </div>
+            </div>
         );
     }
     function Blogs (){
         function SingleBlog(){
             return(
                 <div className="h-fit w-full">
-                    <motion.img className="border-2 border-slate-300 hover:border-green-600 cursor-pointer" src="./img/homepage.png" alt="BlogImage"
+                    <motion.img className="border-2 border-slate-300 hover:border-green-600 cursor-pointer" src="../img/homepage.png" alt="BlogImage"
                         whileHover={{scale: 1.02}} whileTap={{scale:1}}
                     ></motion.img>
-                    <h1 className="mt-3 text-2xl font-bold text-center">Blogs</h1>
-                    <p className="mt-1 text-center">September 27th, 2022</p>
+                    <h1 className="mt-3 text-2xl font-bold text-start">0.1 | Summer Madness</h1>
+                    <p className="mt-1 text-start">September 27th, 2022</p>
                 </div>
             );
         }
         return(
-            <div className="h-fit w-full bg-cover bg-center inline-block pb-20 pt-20 relative" style={{backgroundImage: `url('./img/parallax.webp')`,backgroundAttachment: 'fixed'}}>
-                <div className="h-full w-full absolute top-0 z-10 bg-gradient-to-b from-black/70 via-black/20 to-black/70"></div>
-                <div className="h-full w-2/3 relative z-20 mx-auto">
-                    <div className="h-fit w-fit mx-auto">
-                        <h1 className="text-4xl text-center mt-5">Blogs</h1>
-                        <p className="mt-3 text-center">Stay up to date with the latest blog posts!</p>
+            <div className="w-full bg-cover bg-center inline-block relative" style={{height: '40rem',backgroundImage: `url('../img/parallax.webp')`}}>
+                <div className="w-1/3 h-full absolute z-0 bg-black/40" style={{transform: 'skew(-20deg)'}}>
+                    <div className="h-full w-full flex justify-center items-center" style={{transform: 'skew(20deg)'}}>
+                        <div className="h-fit w-fit mx-auto text-white">
+                            <h1 className="text-4xl text-center">News &amp; Info</h1>
+                            <p className="mt-3 text-center">Stay up to date with the latest blog posts!</p>
+                        </div>
                     </div>
-                    <div className="h-fit w-full mx-auto grid grid-cols-3 gap-8 mt-12">
+                </div>
+                <div className="h-full w-2/3 relative z-20 mx-auto flex justify-end items-center">                   
+                    <div className="h-fit w-3/4 float-right grid grid-cols-3 gap-8 mt-20 mb-20">
                         <SingleBlog/>
                         <SingleBlog/>
                         <SingleBlog/>
@@ -145,18 +174,20 @@ export default function Homepage(){
             setCurrentStaff(setThisStaff[0]);
         }
         return(
-            <div className="h-fit w-full inline-block pb-20 pt-20">
-                <div className="h-full w-2/3 grid grid-cols-1 mx-auto">
-                    <div className="h-fit w-full mx-auto">
-                        <h1 className="text-4xl text-center mt-5">Meet The Team</h1>
-                        <p className="mt-3 text-center">Learn about the people who make MangoCube amazing!</p>
-                    </div>
-                    <div className="h-fit w-full mt-12">                       
-                        <StaffWholeContent/>
-                    </div>
-                    <div className="h-fit w-full flex justify-center items-center mt-20">
-                        <StaffHead name="SEN2Y" img='https://crafatar.com/avatars/a2bb5d3f-0fae-4dea-9019-001de88dfc19?size=100'/>
-                        <StaffHead name="SHIRU" img='https://crafatar.com/avatars/a11c007b-a2c8-42c0-8959-5c154cd1bc9d?size=100'/>                     
+            <div className="w-full bg-black inline-block relative" style={{height: '40rem'}}>
+                <div className="h-full w-full flex justify-center items-center">                   
+                    <div className="h-fit w-2/3 mx-auto grid grid-cols-1">
+                        <div className="h-fit w-full">
+                            <h1 className="text-4xl text-center">Meet The Team</h1>
+                            <p className="mt-3 text-center">Learn about the people who make MangoCube amazing!</p>
+                        </div>
+                        <div className="h-fit w-full mt-10 flex justify-center items-center">                       
+                            <StaffWholeContent/>
+                        </div>
+                        <div className="h-fit w-full flex justify-center items-center mt-20">
+                            <StaffHead name="SEN2Y" img='https://crafatar.com/avatars/a2bb5d3f-0fae-4dea-9019-001de88dfc19?size=100'/>
+                            <StaffHead name="SHIRU" img='https://crafatar.com/avatars/a11c007b-a2c8-42c0-8959-5c154cd1bc9d?size=100'/> 
+                        </div>
                     </div>
                 </div>
             </div>
@@ -164,89 +195,39 @@ export default function Homepage(){
     }
     function Discord (){
         return(
-            <div className="h-fit w-full bg-cover bg-center inline-block pb-20 pt-10 relative" style={{backgroundImage: `url('./img/parallax.jpg')`,backgroundAttachment: 'fixed'}}>
-                <div className="h-full w-full absolute top-0 z-10 bg-gradient-to-b from-black/70 via-black/20 to-black/70"></div>
+            <div className="w-full bg-cover bg-center inline-block relative" style={{height:'40rem',backgroundImage: `url('../img/parallax.jpg')`}}>
                 <div className="h-full w-1/3 relative z-20 mx-auto">
-                    <div className="h-fit w-full mx-auto">
+                    <div className="h-full w-full flex justify-center items-center">
+                    <div className="h-fit w-fit">
                         <h1 className="text-4xl text-center mt-5">Join Our Discord!</h1>
-                        <img className="mt-3 mx-auto" src="./img/discord.png" alt="DiscordLogo"></img>
-                        <p className="mt-3 text-center">Here on MangoCube we think communication is the key to an amazing community. Because of that, we heavily value our Discord and the way it allows us to connect with our favourite people ever - you! Come join us, and let's create our origin - together!</p>
+                        <img className="mt-3 mx-auto" src="../img/discord.png" alt="DiscordLogo"></img>
+                        <p className="mt-8 text-center">Here on MangoCube we think communication is the key to an amazing community. Because of that, we heavily value our Discord and the way it allows us to connect with our favourite people ever - you! Come join us, and let's create our origin - together!</p>
                         <div className="h-fit w-fit mx-auto">
-                            <motion.button className="px-10 py-4 mt-4 bg-sky-800 hover:bg-sky-700 border-b-2 border-r-2 border-sky-400"
+                            <motion.button className="px-10 py-4 mt-8 bg-sky-500 hover:bg-sky-600 border-b-4 border-sky-800"
                              whileHover={{scale: 1.05}} whileTap={{scale:1}}
                             >Click me!</motion.button>
                         </div>
-                    </div>                   
+                    </div>   
+                    </div>                
                 </div>
             </div>
         )
-    }
-    function Footer(){
-        return(
-            <div className="h-fit w-full inline-block bg-black">
-                <div className="h-full w-3/4 grid grid-cols-3 mx-auto pb-20">
-                    <div className="h-full w-full">
-                        <h1 className="text-4xl text-start mt-20">Play Now</h1>
-                        <p className="mt-1 text-start text-lg">Join and start your journey today!</p>
-                        <p className="mt-1 text-start text-lg">play.mangocube.net</p>
-                    </div>
-                    <div className="h-full w-full">
-                        <h1 className="text-4xl text-start mt-20">Links</h1>
-                        <p className="mt-1 text-start text-lg">Home</p>
-                        <p className="mt-1 text-start text-lg">Blog</p>
-                        <p className="mt-1 text-start text-lg">Rules</p>
-                    </div>
-                    <div className="h-full w-full">
-                        <h1 className="text-4xl text-start mt-20">Store</h1>
-                        <p className="mt-1 text-start text-lg">Check out our store to purchase ranks, crate keys, and more!</p>
-                        <button className="px-8 py-2 mt-2 rounded-md bg-yellow-600 hover:bg-yellow-500">Shop Now!</button>
-                    </div>
-                </div>
-                <div className="h-20 w-full mx-auto bg-zinc-900 border-t-2 border-zinc-700">
-                    <div className="h-full w-3/4 mx-auto flex items-center">
-                        <p className="mt-1 text-start text-lg">&#169; 2022 MangoCube</p>
-                    </div>
-                </div>
-            </div>
-        );
     }
     function copyServerIP(){
         navigator.clipboard.writeText('play.mangocube.net');
         refServerIP.current.innerHTML = "Copied to clipboard!";
         setTimeout(()=>{refServerIP.current.innerHTML = "play.mangocube.net";},3000)
     }
-    return(
+    return(  
+        <>
+        {transitionTabAnimation ? <TransitionAnimation/> : null}
+        <motion.div className="fixed top-0 h-screen w-full bg-black" style={{zIndex: 70}} initial={{opacity:1}} animate={{opacity:0,transitionEnd:{display:'none'} }} transition={{duration:0.4}}></motion.div>
         <div className="h-fit w-full">
-            <motion.div className="w-full bg-cover bg-center bg-no-repeat relative" style={{backgroundImage: `url('./img/homepage.png')`,height: '40rem'}}
-                animate={{backgroundSize: ['100%','102%','100%']}}
-                transition={{duration: 10, repeat:'Infinity'}}
-            >               
-                <div className="h-full w-full absolute top-0 z-10 backdrop-blur-sm"></div>
-                <div className="h-full w-full absolute top-0 z-20 bg-gradient-to-b from-transparent to-black">
-                    <div className="h-full w-full flex justify-center items-center">
-                        <div className="h-fit w-fit mx-auto">
-                            <motion.img className="cursor-pointer mx-auto" src="./img/mangocube_logo.webp" alt="MangoCube Logo"
-                                initial={{scale:1.2}}
-                                animate={{y: [0,-15,0]}}
-                                transition={{duration:1.5, repeat:'Infinity'}}
-                                drag
-                                dragConstraints={{top: 0, bottom:0, left: 0, right: 0}}
-                            ></motion.img>
-                            <motion.div className="h-fit w-fit flex justify-center items-center px-5 py-2 bg-amber-900 border-2 border-amber-700 mt-5"
-                                initial={{y:50, opacity: 0}}
-                                animate={{y:0, opacity: 1}}
-                                transition={{duration:1}}
-                                >
-                                <motion.p ref={refServerIP} className="text-3xl text-center cursor-pointer" onClick={copyServerIP}>play.mangocube.net</motion.p>
-                            </motion.div>
-                        </div>
-                    </div>
-                </div>
-                <Header/>
-            </motion.div>
+            <Banner/>
             <div className="h-fit w-full">
                 <div className="h-fit w-full">
                     <Introduce/>
+                    {/* <SplitLiner/> */}
                     <Blogs/>
                     <Staff/>
                     <Discord/>
@@ -254,5 +235,6 @@ export default function Homepage(){
                 </div>
             </div>
         </div>
+        </>
     );
 }
