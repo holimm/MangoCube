@@ -24,6 +24,12 @@ export default function Header(){
                 dispatch(setCurrentPage('Blog'));
                 setTimeout(()=>{navigate('/MangoCube/blog')},400);
                 break;
+            case 'Rules': 
+                dispatch(setHeaderCancelAnimation(0));
+                dispatch(setTransitionTabAnimation(true));
+                dispatch(setCurrentPage('Rules'));
+                setTimeout(()=>{navigate('/MangoCube/rules')},400);
+                break;
         }
     }
     return(
@@ -38,7 +44,8 @@ export default function Header(){
                     : <div onClick={()=>NavigateToAnotherPage('Home')} className="h-fit w-fit mx-6 px-3 py-1 text-xl hover:bg-white hover:text-black transition-all duration-300 cursor-pointer rounded-full">Homepage</div>}
                     {currentPage=='Blog' ? <div className="h-fit w-fit mx-6 px-3 py-1 text-xl bg-white text-black cursor-pointer rounded-full">News &amp; Info</div>
                     : <div onClick={()=>NavigateToAnotherPage('Blog')} className="h-fit w-fit mx-6 px-3 py-1 text-xl hover:bg-white hover:text-black transition-all duration-300 cursor-pointer rounded-full">News &amp; Info</div>}
-                    <div onClick={()=>NavigateToAnotherPage('Rules')} className="h-fit w-fit mx-6 px-3 py-1 text-xl hover:bg-white hover:text-black transition-all duration-300 cursor-pointer rounded-full">Rules</div>
+                    {currentPage=='Rules' ? <div className="h-fit w-fit mx-6 px-3 py-1 text-xl bg-white text-black cursor-pointer rounded-full">Rules</div>
+                    : <div onClick={()=>NavigateToAnotherPage('Rules')} className="h-fit w-fit mx-6 px-3 py-1 text-xl hover:bg-white hover:text-black transition-all duration-300 cursor-pointer rounded-full">Rules</div>}
                     <div onClick={()=>NavigateToAnotherPage('Store')} className="h-fit w-fit mr-20 ml-6 px-4 py-2 text-xl bg-amber-600 hover:bg-amber-500 transition-all duration-300 cursor-pointer rounded-full">Store</div>
                 </div>
             </nav>

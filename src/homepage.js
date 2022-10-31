@@ -23,7 +23,7 @@ export default function Homepage(){
     },[]);   
     const react_slick_settings = {
         dots: true,
-        infinite: true,
+        infinite: false,
         speed: 500,
         slidesToShow: 3,
         slidesToScroll: 3
@@ -66,7 +66,7 @@ export default function Homepage(){
                 <div className="h-full w-2/3 mx-auto">
                     <ReactPlayer url={'https://www.youtube.com/embed/jMe3tdyjouM'} width={'100%'} height={'40rem'} playing={true} muted={true} controls={false} loop={true}></ReactPlayer>    
                 </div>
-                <div className="h-full w-1/3 mx-auto flex items-center mt-20">
+                <div className="h-full w-2/3 mx-auto flex items-center mt-20">
                     <div className="h-fit w-full text-center">
                         <h1 className="text-4xl">What is MangoCube?</h1>
                         <p className="mt-3 text-lg">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
@@ -87,9 +87,9 @@ export default function Homepage(){
             );
         }
         return(
-            <div className="h-fit w-full bg-cover bg-center inline-block relative py-32" style={{backgroundImage: `url('../img/news_bg.gif')`}}>
+            <div className="h-fit w-full bg-cover bg-center inline-block relative" style={{backgroundImage: `url('../img/news_bg.gif')`}}>
             {/* <div className="h-fit w-full inline-block relative py-20"> */}
-                <div className="h-full w-full flex justify-center items-center">                   
+                <div className="h-full w-full flex justify-center items-center bg-black/30 py-32">                   
                     <div className="h-fit w-10/12 mx-auto">
                         <div className="h-fit w-full">
                             <h1 className="text-4xl text-center">News &amp; Info</h1>
@@ -202,7 +202,7 @@ export default function Homepage(){
     function Discord (){
         return(
             <div className="w-full bg-cover bg-center inline-block relative" style={{backgroundImage: `url('../img/discord_bg.jpg')`}}>
-                <div className="w-full h-full bg-black/50 py-28">
+                <div className="w-full h-full bg-black/30 py-28">
                     <div className="h-full w-1/3 relative z-20 mx-auto">
                         <div className="h-full w-full flex justify-center items-center">
                         <div className="h-fit w-fit">

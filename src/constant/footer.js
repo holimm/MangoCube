@@ -22,7 +22,8 @@ export default function Footer(){
                      : <p onClick={()=>{navigate('/MangoCube/homepage')}} className="mt-1 text-start text-lg cursor-pointer">Home</p> }
                     {currentPage=='Blog' ? <p className="mt-1 text-start text-lg text-amber-400 cursor-pointer">News &amp; Info</p>
                      : <p onClick={()=>{navigate('/MangoCube/blog')}} className="mt-1 text-start text-lg cursor-pointer">News &amp; Info</p> }
-                    <p className="mt-1 text-start text-lg">Rules</p>
+                     {currentPage=='Rules' ? <p className="mt-1 text-start text-lg text-amber-400 cursor-pointer">Rules</p>
+                     : <p onClick={()=>{navigate('/MangoCube/rules')}} className="mt-1 text-start text-lg cursor-pointer">Rules</p> }
                 </div>
                 <div className="h-full w-full">
                     <h1 className="text-4xl text-start mt-20">Store</h1>
